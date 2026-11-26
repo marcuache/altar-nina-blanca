@@ -39,12 +39,11 @@ Genera 7 phrases y 4 readings nuevos. No prometas milagros médicos ni daños a 
 
   let data = null;
   let lastError = '';
-  const models = ['gemini-3.8-flash', 'gemini-3.8-flash', 'gemini-3.8-flash-lite'];
+  const delays = [5000, 10000, 15000, 20000];
 
-  for (let i = 0; i < models.length; i++) {
-    const model = models[i];
+  for (let i = 0; i < delays.length; i++) {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -62,10 +61,46 @@ Genera 7 phrases y 4 readings nuevos. No prometas milagros médicos ni daños a 
 
     lastError = `${res.status} ${await res.text()}`;
     if (res.status === 503 || res.status === 429) {
-      await new Promise((r) => setTimeout(r, (i + 1) * 5000));
+      await new Promise((r) => setTimeout(r, delays[i]));
       continue;
     }
     throw new Error(`Error Gemini API: ${lastError}`);
+  }
+
+  // Si sigue saturado, intenta con el primer modelo Flash disponible en la cuenta
+  if (!data) {
+    const listRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models?key=${GEMINI_API_KEY}`
+    );
+    if (listRes.ok) {
+      const listJson = await listRes.json();
+      const candidates = (listJson.models || [])
+        .filter(
+          (m) =>
+            m.supportedGenerationMethods?.includes('generateContent') &&
+            m.name.includes('flash') &&
+            !m.name.endsWith('gemini-3.8-flash')
+        )
+        .map((m) => m.name);
+
+      for (const modelName of candidates.slice(0, 3)) {
+        const res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/${modelName}:generateContent?key=${GEMINI_API_KEY}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: { responseMimeType: 'application/json' },
+            }),
+          }
+        );
+        if (res.ok) {
+          data = await res.json();
+          break;
+        }
+      }
+    }
   }
 
   if (!data) {
