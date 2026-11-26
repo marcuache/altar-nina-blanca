@@ -37,23 +37,40 @@ Devuelve SOLO un JSON válido con esta estructura exacta:
 }
 Genera 7 phrases y 4 readings nuevos. No prometas milagros médicos ni daños a terceros.`;
 
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${GEMINI_API_KEY}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { responseMimeType: 'application/json' },
-      }),
-    }
-  );
+  let data = null;
+  let lastError = '';
+  const models = ['gemini-3.8-flash', 'gemini-3.8-flash', 'gemini-3.8-flash-lite'];
 
-  if (!res.ok) {
-    throw new Error(`Error Gemini API: ${res.status} ${await res.text()}`);
+  for (let i = 0; i < models.length; i++) {
+    const model = models[i];
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { responseMimeType: 'application/json' },
+        }),
+      }
+    );
+
+    if (res.ok) {
+      data = await res.json();
+      break;
+    }
+
+    lastError = `${res.status} ${await res.text()}`;
+    if (res.status === 503 || res.status === 429) {
+      await new Promise((r) => setTimeout(r, (i + 1) * 5000));
+      continue;
+    }
+    throw new Error(`Error Gemini API: ${lastError}`);
   }
 
-  const data = await res.json();
+  if (!data) {
+    throw new Error(`Error Gemini API tras reintentos: ${lastError}`);
+  }
   const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!text) throw new Error('Respuesta vacía de Gemini');
 
