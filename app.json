@@ -13,6 +13,11 @@
     },
     "android": {
       "package": "com.altarninablanca.app",
+      "versionCode": 2,
+      "blockedPermissions": [
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO"
+      ],
       "adaptiveIcon": {
         "backgroundColor": "#0D0B12",
         "foregroundImage": "./assets/app-icon.jpg",
@@ -28,6 +33,12 @@
       "expo-router",
       "expo-sharing",
       "expo-notifications",
+      [
+        "expo-media-library",
+        {
+          "granularPermissions": []
+        }
+      ],
       [
         "react-native-google-mobile-ads",
         {
