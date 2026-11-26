@@ -27,6 +27,11 @@ export function PaywallModal() {
         '¡Gracias por tu apoyo!',
         'Los anuncios han sido eliminados de por vida en esta app.'
       );
+    } catch {
+      Alert.alert(
+        'Compra no completada',
+        'No se pudo procesar el pago en Google Play. Intenta de nuevo más tarde.'
+      );
     } finally {
       setProcessing(false);
     }

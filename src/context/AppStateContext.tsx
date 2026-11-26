@@ -12,6 +12,10 @@ import {
   scheduleCandleExpiringReminder,
 } from '../services/notificationsService';
 import {
+  purchaseLifetimeFromStore,
+  restoreLifetimeFromStore,
+} from '../services/billingService';
+import {
   CandleColorId,
   DailyPhrase,
   FortuneReading,
@@ -175,14 +179,34 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
   );
 
   const unlockLifetimeAdFree = useCallback(async () => {
-    // Aquí se conectará Google Play Billing (react-native-purchases / expo-iap)
-    // con el producto único de $2.99 USD (ej. "quitar_anuncios_lifetime").
-    setIsAdFree(true);
-    await AsyncStorage.setItem(STORAGE_KEYS.AD_FREE, 'true');
-    setPaywallVisible(false);
+    const storeResult = await purchaseLifetimeFromStore();
+    if (storeResult === 'purchased') {
+      setIsAdFree(true);
+      await AsyncStorage.setItem(STORAGE_KEYS.AD_FREE, 'true');
+      setPaywallVisible(false);
+      return;
+    }
+
+    if (storeResult === 'unavailable') {
+      // En Expo Go o sin Play Store disponible, permite probar el estado Pro localmente.
+      setIsAdFree(true);
+      await AsyncStorage.setItem(STORAGE_KEYS.AD_FREE, 'true');
+      setPaywallVisible(false);
+      return;
+    }
+
+    if (storeResult === 'error') {
+      throw new Error('No se pudo completar la compra en Google Play.');
+    }
   }, []);
 
   const restorePurchase = useCallback(async () => {
+    const storeResult = await restoreLifetimeFromStore();
+    if (storeResult === 'restored') {
+      setIsAdFree(true);
+      await AsyncStorage.setItem(STORAGE_KEYS.AD_FREE, 'true');
+      return true;
+    }
     const raw = await AsyncStorage.getItem(STORAGE_KEYS.AD_FREE);
     const active = raw === 'true';
     setIsAdFree(active);
