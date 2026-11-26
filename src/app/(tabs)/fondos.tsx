@@ -17,6 +17,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppState } from '../../context/AppStateContext';
 import { LOCAL_WALLPAPER_IMAGES } from '../../data/localWallpapers';
+import { showRewardedAd } from '../../services/adsService';
 import { WallpaperItem } from '../../types/content';
 
 const CATEGORIES = ['Todos', 'Protección', 'Abundancia', 'Amor', 'Altar'] as const;
@@ -79,20 +80,37 @@ export default function FondosScreen() {
     }
   };
 
-  const handleSave = (item: WallpaperItem) => {
+  const handleSave = async (item: WallpaperItem) => {
     if (isAdFree) {
       performSaveToGallery(item);
       return;
     }
 
+    setBusy(true);
+    const adResult = await showRewardedAd();
+    setBusy(false);
+
+    if (adResult === 'rewarded') {
+      performSaveToGallery(item);
+      return;
+    }
+
+    if (adResult === 'dismissed') {
+      Alert.alert(
+        'Anuncio incompleto',
+        'Mira el video completo para guardar el fondo en tu galería.'
+      );
+      return;
+    }
+
     Alert.alert(
       'Descargar fondo HD',
-      `Mira un anuncio corto para guardar "${item.title}" en tu galería o quita todos los anuncios de por vida.`,
+      `El anuncio no está disponible en este momento (o estás en Expo Go). Puedes simularlo o quitar anuncios de por vida.`,
       [
         { text: 'Cancelar', style: 'cancel' },
         { text: 'Quitar anuncios ($2.99)', onPress: () => setPaywallVisible(true) },
         {
-          text: 'Ver anuncio (Simular)',
+          text: 'Guardar (Modo prueba)',
           onPress: () => performSaveToGallery(item),
         },
       ]

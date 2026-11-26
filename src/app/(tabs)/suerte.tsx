@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppState } from '../../context/AppStateContext';
 import { CANDLE_COLORS } from '../../data/seedContent';
+import { showRewardedAd } from '../../services/adsService';
 
 export default function SuerteScreen() {
   const {
@@ -36,16 +37,32 @@ export default function SuerteScreen() {
     }
   };
 
-  const handleExtraDraw = () => {
+  const handleExtraDraw = async () => {
     if (isAdFree) {
       drawFortuneReading(false);
       return;
     }
 
-    // En producción aquí se dispara RewardedAd de AdMob antes de entregar la lectura.
+    setDrawing(true);
+    const adResult = await showRewardedAd();
+    if (adResult === 'rewarded') {
+      await drawFortuneReading(true);
+      setDrawing(false);
+      return;
+    }
+    setDrawing(false);
+
+    if (adResult === 'dismissed') {
+      Alert.alert(
+        'Anuncio incompleto',
+        'Mira el video completo para desbloquear una nueva lectura.'
+      );
+      return;
+    }
+
     Alert.alert(
       'Nueva lectura de suerte',
-      'Tu lectura gratuita de hoy ya está abierta. Puedes ver un anuncio corto para sacar otra carta o quitar anuncios de por vida.',
+      'El anuncio no está disponible en este momento (o estás en Expo Go). Puedes simularlo o quitar anuncios de por vida.',
       [
         { text: 'Cancelar', style: 'cancel' },
         {
@@ -53,7 +70,7 @@ export default function SuerteScreen() {
           onPress: () => setPaywallVisible(true),
         },
         {
-          text: 'Ver anuncio (Simular)',
+          text: 'Desbloquear (Modo prueba)',
           onPress: async () => {
             setDrawing(true);
             await drawFortuneReading(true);

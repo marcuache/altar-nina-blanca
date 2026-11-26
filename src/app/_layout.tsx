@@ -5,10 +5,12 @@ import { Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PaywallModal } from '../components/PaywallModal';
 import { AppStateProvider } from '../context/AppStateContext';
+import { initializeAds } from '../services/adsService';
 import { widgetTaskHandler } from '../widgets/widgetTaskHandler';
 
 export default function RootLayout() {
   useEffect(() => {
+    initializeAds();
     if (Platform.OS !== 'android') return;
     import('react-native-android-widget')
       .then(({ registerWidgetTaskHandler }) => {

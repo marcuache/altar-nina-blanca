@@ -1,18 +1,37 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useAppState } from '../context/AppStateContext';
+import { getAdsModule, getBannerUnitId } from '../services/adsService';
 
-/**
- * Espacio reservado para Banner de Google AdMob.
- * En compilación nativa con `react-native-google-mobile-ads`, aquí se renderiza <BannerAd />.
- * En Expo Go / desarrollo muestra un marcador visual con acceso directo a "Quitar anuncios ($2.99)".
- */
 export function AdBanner() {
   const { isAdFree, setPaywallVisible } = useAppState();
+  const [adFailed, setAdFailed] = useState(false);
 
   if (isAdFree) {
     return null;
+  }
+
+  const adsMod = getAdsModule();
+
+  if (adsMod && !adFailed) {
+    const { BannerAd, BannerAdSize } = adsMod;
+    return (
+      <View style={styles.nativeContainer}>
+        <BannerAd
+          unitId={getBannerUnitId()}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          onAdFailedToLoad={() => setAdFailed(true)}
+        />
+        <TouchableOpacity
+          style={styles.floatingRemoveBtn}
+          onPress={() => setPaywallVisible(true)}
+          activeOpacity={0.85}
+        >
+          <Text style={styles.removeBtnText}>Quitar $2.99</Text>
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   return (
@@ -22,7 +41,7 @@ export function AdBanner() {
           <Text style={styles.badgeText}>ANUNCIO</Text>
         </View>
         <Text style={styles.text} numberOfLines={1}>
-          Espacio AdMob (Banner 320x50)
+          AdMob conectado (activo en APK/Play)
         </Text>
       </View>
       <TouchableOpacity
@@ -38,6 +57,22 @@ export function AdBanner() {
 }
 
 const styles = StyleSheet.create({
+  nativeContainer: {
+    backgroundColor: '#120F18',
+    borderTopWidth: 1,
+    borderTopColor: '#252030',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  floatingRemoveBtn: {
+    position: 'absolute',
+    right: 6,
+    top: -12,
+    backgroundColor: '#D4AF37',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 999,
+  },
   container: {
     height: 54,
     backgroundColor: '#16141C',
