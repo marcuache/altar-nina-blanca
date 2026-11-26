@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "updatedAt": "2026-11-25T00:00:00Z",
+  "phrases": [
+    {
+      "id": "p-1",
+      "title": "Camino firme y corazón tranquilo",
+      "phrase": "Quien camina con fe y obra con rectitud no teme a la tormenta; la Niña Blanca siempre equilibra la balanza a su tiempo.",
+      "prayer": "Gracias, Santa Muerte, por un día más de vida. Guía mis pasos, protege a los míos y dame fortaleza para superar cualquier prueba.",
+      "reflection": "Hoy actúa con calma antes de responder; la serenidad es tu mayor escudo."
+    },
+    {
+      "id": "p-2",
+      "title": "Puertas que se abren",
+      "phrase": "Ninguna puerta permanece cerrada cuando la constancia y la gratitud van de la mano.",
+      "prayer": "Niña Blanca, bendice mi trabajo y mis manos. Aparta los obstáculos del camino y permíteme ver las oportunidades que hoy llegan.",
+      "reflection": "Agradece lo que ya tienes antes de pedir lo que viene."
+    }
+  ],
+  "readings": [
+    {
+      "id": "r-1",
+      "symbol": "⚖️",
+      "title": "La Balanza Equilibrada",
+      "message": "Un asunto pendiente relacionado con dinero o un acuerdo laboral comienza a inclinarse a tu favor.",
+      "advice": "Revisa los detalles con calma y no firmes ni prometas nada por impulso.",
+      "luckyNumbers": "07 · 14 · 33",
+      "recommendedCandle": "dorada"
+    },
+    {
+      "id": "r-2",
+      "symbol": "🕯️",
+      "title": "La Llama Firme",
+      "message": "Tu energía se estabiliza después de días de tensión. Llega una noticia que devuelve tranquilidad a tu hogar.",
+      "advice": "Agradece hoy en silencio y dedica tiempo a tu familia o a ordenar tu espacio.",
+      "luckyNumbers": "01 · 11 · 28",
+      "recommendedCandle": "blanca"
+    }
+  ],
+  "wallpapers": [
+    {
+      "id": "w-1",
+      "title": "Manto de Oro",
+      "category": "Abundancia",
+      "gradientColors": ["#140F07", "#3D2B0D", "#0B0906"],
+      "accentColor": "#D4AF37"
+    },
+    {
+      "id": "w-2",
+      "title": "Luz Blanca del Altar",
+      "category": "Altar",
+      "gradientColors": ["#12131A", "#2B2E3B", "#09090D"],
+      "accentColor": "#F5F2EB"
+    }
+  ]
+}

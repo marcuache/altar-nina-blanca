@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "Altar de la Niña Blanca",
+    "slug": "altar-nina-blanca",
+    "version": "1.0.0",
+    "scheme": "altarninablanca",
+    "orientation": "portrait",
+    "icon": "./assets/app-icon.jpg",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.altarninablanca.app"
+    },
+    "android": {
+      "package": "com.altarninablanca.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0D0B12",
+        "foregroundImage": "./assets/app-icon.jpg",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sharing",
+      "expo-notifications",
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "name": "VeladoraWidget",
+              "label": "Veladora — Niña Blanca",
+              "minWidth": "180dp",
+              "minHeight": "110dp",
+              "targetCellWidth": 3,
+              "targetCellHeight": 2,
+              "description": "Muestra tu veladora encendida y el tiempo restante de 24 horas.",
+              "updatePeriodMillis": 1800000
+            }
+          ]
+        }
+      ]
+    ],
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "f8749861-264f-4a14-807f-9763944bc046"
+      }
+    },
+    "owner": "highzenbur12"
+  }
+}
