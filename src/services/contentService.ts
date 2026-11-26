@@ -4,9 +4,10 @@ import { DailyPhrase, FortuneReading, RemoteContentPayload } from '../types/cont
 
 const CACHE_KEY = '@nina_blanca_remote_content_v1';
 
-// URL pública donde el script automático (GitHub Actions / Supabase / Cloudflare) sube el JSON actualizado.
-// Mientras esté vacía o falle la red, la app usa el contenido local incluido y el caché guardado.
-export const REMOTE_CONTENT_URL = '';
+// URL pública donde el script automático (GitHub Actions) sube el JSON actualizado.
+// Si falla la red, la app usa el contenido local incluido y el caché guardado.
+export const REMOTE_CONTENT_URL =
+  'https://raw.githubusercontent.com/marcuache/altar-nina-blanca/main/content/contenido.json';
 
 export async function loadContent(): Promise<RemoteContentPayload> {
   let base = SEED_PAYLOAD;
