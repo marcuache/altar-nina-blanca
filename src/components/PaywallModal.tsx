@@ -74,14 +74,15 @@ export function PaywallModal() {
 
           <Text style={styles.title}>Altar Sin Anuncios</Text>
           <Text style={styles.subtitle}>
-            Pago único de por vida. Sin suscripciones ni cobros mensuales.
+            Pago único de por vida. Tu aporte se destina directamente a mejorar la
+            aplicación, sumar nuevos fondos HD y mantener el altar activo.
           </Text>
 
           <View style={styles.benefits}>
-            <BenefitRow text="Cero anuncios en toda la aplicación" />
+            <BenefitRow text="Cero anuncios en toda la aplicación para siempre" />
             <BenefitRow text="Lecturas de suerte ilimitadas cada día" />
-            <BenefitRow text="Descarga directa de fondos sin esperar videos" />
-            <BenefitRow text="Apoyas el mantenimiento del altar y nuevas oraciones" />
+            <BenefitRow text="Descarga directa de todos los fondos HD" />
+            <BenefitRow text="Apoyas mejoras continuas y nuevas funciones de la app" />
           </View>
 
           <TouchableOpacity

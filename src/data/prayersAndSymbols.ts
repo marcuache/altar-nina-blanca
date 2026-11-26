@@ -32,6 +32,7 @@ export const PRAYER_CATEGORIES: PrayerCategory[] = [
 ];
 
 export const PRAYERS: PrayerItem[] = [
+  // Protección
   {
     id: 'pr-1',
     category: 'Protección',
@@ -44,49 +45,124 @@ export const PRAYERS: PrayerItem[] = [
     category: 'Protección',
     title: 'Limpieza del Hogar y la Familia',
     recommendedCandle: 'Veladora Blanca',
-    text: 'Niña Blanca, entra en esta casa y llévala de armonía. Corta con tu guadaña toda discusión, pesadez o energía contraria, y deja solo tranquilidad para quienes aquí vivimos.',
+    text: 'Niña Blanca, entra en esta casa y llénala de armonía. Corta con tu guadaña toda discusión, pesadez o energía contraria, y deja solo tranquilidad para quienes aquí vivimos.',
   },
   {
     id: 'pr-3',
+    category: 'Protección',
+    title: 'Escudo Contra Envidias y Chismes',
+    recommendedCandle: 'Veladora Negra',
+    text: 'Poderosa Señora, tú que ves lo oculto, devuelve la calma a mi entorno. Que ninguna palabra malintencionada toque mi paz ni frene el fruto de mi esfuerzo.',
+  },
+  // Dinero y Trabajo
+  {
+    id: 'pr-4',
     category: 'Dinero y Trabajo',
     title: 'Apertura de Caminos y Sustento',
     recommendedCandle: 'Veladora Dorada',
     text: 'Señora de luz dorada, bendice mis manos, mi oficio y mis proyectos. Abre las puertas del trabajo honesto, atrae clientes justos y permite que nunca falte el pan en mi mesa.',
   },
   {
-    id: 'pr-4',
+    id: 'pr-5',
     category: 'Dinero y Trabajo',
     title: 'Para Destrabar Negocios o Pagos',
     recommendedCandle: 'Veladora Dorada o Verde',
     text: 'Dueña de la balanza justa, mueve lo que hoy está detenido. Que el esfuerzo de mi trabajo rinda frutos, se resuelvan deudas y llegue la estabilidad económica a mi vida.',
   },
   {
-    id: 'pr-5',
+    id: 'pr-6',
+    category: 'Dinero y Trabajo',
+    title: 'Bendición Antes de Iniciar la Jornada',
+    recommendedCandle: 'Veladora Dorada',
+    text: 'Niña Blanca, acompáñame hoy en mi trabajo. Dame claridad para aprovechar las buenas oportunidades, trato amable y prosperidad honesta en cada paso.',
+  },
+  // Salud
+  {
+    id: 'pr-7',
     category: 'Salud',
     title: 'Fuerza Física y Calma Espiritual',
     recommendedCandle: 'Veladora Morada',
     text: 'Madre compasiva, posa tu mano serena sobre quien hoy enfrenta enfermedad o cansancio. Transmuta el dolor en alivio, fortalece el cuerpo y da paciencia al corazón.',
   },
   {
-    id: 'pr-6',
+    id: 'pr-8',
+    category: 'Salud',
+    title: 'Serenidad en Noches de Preocupación',
+    recommendedCandle: 'Veladora Morada o Blanca',
+    text: 'Santísima Muerte, aquieta los pensamientos que no me dejan descansar. Renueva mis fuerzas durante el sueño y permíteme despertar con ánimo y salud.',
+  },
+  {
+    id: 'pr-9',
+    category: 'Salud',
+    title: 'Recuperación de un Ser Querido',
+    recommendedCandle: 'Veladora Morada',
+    text: 'Niña Blanca, pongo en tus manos la salud de quien amo. Acompaña a quienes cuidan y atienden, y concede pronto alivio, fortaleza y esperanza.',
+  },
+  // Amor
+  {
+    id: 'pr-10',
     category: 'Amor',
     title: 'Armonía y Cariño Verdadero',
     recommendedCandle: 'Veladora Roja',
     text: 'Niña de manto rojo, sana las heridas del orgullo y fortalece el respeto en mi relación. Aleja el rencor y permite que el amor sincero florezca con lealtad.',
   },
   {
-    id: 'pr-7',
+    id: 'pr-11',
+    category: 'Amor',
+    title: 'Atraer Compañía Honesta',
+    recommendedCandle: 'Veladora Roja',
+    text: 'Señora del corazón sereno, aparta de mi vida a quien solo trae dudas y acerca a quien camine conmigo con verdad, respeto y cariño limpio.',
+  },
+  {
+    id: 'pr-12',
+    category: 'Amor',
+    title: 'Unión y Paciencia en el Hogar',
+    recommendedCandle: 'Veladora Roja o Blanca',
+    text: 'Madre protectora, enséñanos a escucharnos con paciencia, a perdonar lo pequeño y a cuidar el cariño que nos une cada día.',
+  },
+  // Casos Difíciles
+  {
+    id: 'pr-13',
     category: 'Casos Difíciles',
     title: 'Oración para Trámites y Justicia',
     recommendedCandle: 'Veladora Verde o Negra',
     text: 'Santísima Muerte, tú que no haces distinciones y ves la verdad oculta, inclina la balanza hacia lo justo en este asunto difícil. Dame claridad para actuar con firmeza.',
   },
   {
-    id: 'pr-8',
+    id: 'pr-14',
+    category: 'Casos Difíciles',
+    title: 'Luz Cuando Todo Parece Cerrado',
+    recommendedCandle: 'Veladora Azul o Blanca',
+    text: 'Niña Blanca, cuando mis fuerzas flaquean, sostén mi ánimo. Muéstrame la salida que hoy no alcanzo a ver y dame valor para dar el siguiente paso.',
+  },
+  {
+    id: 'pr-15',
+    category: 'Casos Difíciles',
+    title: 'Sabiduría Antes de Decidir',
+    recommendedCandle: 'Veladora Azul',
+    text: 'Guía sabia del búho nocturno, despeja la confusión de mi mente. Ayúdame a elegir el camino correcto y a no ceder ante el miedo.',
+  },
+  // Agradecimiento
+  {
+    id: 'pr-16',
     category: 'Agradecimiento',
     title: 'Gratitud por los Favores Recibidos',
     recommendedCandle: 'Veladora Blanca',
     text: 'Gracias, Niña Blanca, por escucharme cuando más lo necesité, por cuidar a los míos y por abrirme paso en silencio. Recibe esta luz como muestra de respeto y fe.',
+  },
+  {
+    id: 'pr-17',
+    category: 'Agradecimiento',
+    title: 'Ofrenda de Inicio de Semana',
+    recommendedCandle: 'Veladora Blanca o Dorada',
+    text: 'Agradezco el techo, el alimento y la vida que hoy tengo. Sigue guiando mi caminar con humildad y buen corazón.',
+  },
+  {
+    id: 'pr-18',
+    category: 'Agradecimiento',
+    title: 'Cierre de Día en Paz',
+    recommendedCandle: 'Veladora Blanca',
+    text: 'Gracias por lo aprendido hoy, por las pruebas superadas y por tu compañía silenciosa. Entrego este día y descanso bajo tu resguardo.',
   },
 ];
 
